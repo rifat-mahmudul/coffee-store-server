@@ -38,10 +38,18 @@ async function run() {
             res.send(result)
         })
 
-        //get all coffee data form BD
+        //get all coffee data form DB
         app.get('/coffees', async(req, res) => {
             const coffees = await coffeeCollection.find().toArray();
             res.send(coffees);
+        })
+
+        //get one coffee data from DB
+        app.get('/coffees/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = {_id : new ObjectId(id)};
+            const result = await coffeeCollection.findOne(query);
+            res.send(result);
         })
 
         //Delete a coffee from DB
